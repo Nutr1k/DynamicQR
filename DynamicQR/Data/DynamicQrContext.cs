@@ -16,14 +16,41 @@ public partial class DynamicQrContext : DbContext
     {
     }
 
+    public virtual DbSet<Qr> Qrs { get; set; }
+
+    public virtual DbSet<TypeQr> TypeQrs { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-     //   => optionsBuilder.UseSqlServer("Server=localhost ;Database=DynamicQR;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Qr>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("QR");
+
+            entity.Property(e => e.Title).HasMaxLength(50);
+
+            entity.HasOne(d => d.IdNavigation).WithMany()
+                .HasForeignKey(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_QR_Users");
+
+            entity.HasOne(d => d.TypeNavigation).WithMany()
+                .HasForeignKey(d => d.Type)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_QR_TypeQR");
+        });
+
+        modelBuilder.Entity<TypeQr>(entity =>
+        {
+            entity.ToTable("TypeQR");
+
+            entity.Property(e => e.Type).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.Property(e => e.Id).HasColumnName("id");
