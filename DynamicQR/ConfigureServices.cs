@@ -9,6 +9,9 @@ namespace DynamicQR
 		public static void AddServices(this WebApplicationBuilder builder)
 		{
 			builder.AddDatabase();
+			builder.AddSwagger();
+			//Используется для регистрации валидаторов (классов валидации), которые наследуют AbstractValidator<T>
+			//или реализуют IValidator<T>
 			builder.Services.AddValidatorsFromAssembly(typeof(ConfigureServices).Assembly);
 		}
 
@@ -19,6 +22,12 @@ namespace DynamicQR
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 			});
+		}
+
+		private static void AddSwagger(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
 		}
 	}
 }
