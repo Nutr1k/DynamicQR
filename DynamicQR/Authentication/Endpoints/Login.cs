@@ -44,7 +44,7 @@ namespace DynamicQR.Authentication.Endpoints
 			}
 
 			//var token = jwt.GenerateToken(user);
-			var response = new Response("45"/*token*/);
+			var response = new Response("test"/*token*/);
 			return TypedResults.Ok(response);
 		}
 	}
