@@ -8,7 +8,7 @@ namespace DynamicQR
 	{
 		public static async Task Configure(this WebApplication app)
 		{
-			app.UseHttpsRedirection();
+			app.UseHttpsRedirection();//Для перенаправления всех HTTP-запросов на HTTPS.
 			app.MapEndpoints();
 		}
 

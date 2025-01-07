@@ -6,6 +6,7 @@ namespace DynamicQR
 		public static async Task Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+			
 			builder.AddServices();
 
 			// Add services to the container.
@@ -13,6 +14,8 @@ namespace DynamicQR
 
 			var app = builder.Build();
 			await app.Configure();
+
+			#region Äëÿ UI(Web)
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
 			{
@@ -29,6 +32,7 @@ namespace DynamicQR
 			app.UseAuthorization();
 
 			app.MapRazorPages();
+			#endregion
 
 			app.Run();
 		}

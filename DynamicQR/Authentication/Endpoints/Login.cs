@@ -1,4 +1,5 @@
 ﻿using DynamicQR.Common;
+using DynamicQR.Common.Api.Extension;
 using DynamicQR.Data;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -14,8 +15,8 @@ namespace DynamicQR.Authentication.Endpoints
 		{
 			app
 			   .MapPost("/login", Handle)
-			   .WithSummary("Logs in a user");
-			  // .WithRequestValidation<Request>
+			   .WithSummary("Logs in a user")
+			   .WithRequestValidation<Request>();
 		}
 
 		//Запрос
