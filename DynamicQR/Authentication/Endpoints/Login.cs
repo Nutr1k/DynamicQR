@@ -35,7 +35,7 @@ namespace DynamicQR.Authentication.Endpoints
 			}
 		}
 
-		private static async Task<Results<Ok<Response>, UnauthorizedHttpResult>> Handle(Request request, DynamicQrContext database/**, Jwt jwt**/, CancellationToken cancellationToken)
+		private static async Task<Results<Ok, UnauthorizedHttpResult>> Handle(Request request, DynamicQrContext database, CancellationToken cancellationToken)
 		{
 			var user = await database.Users.SingleOrDefaultAsync(x => x.Username == request.Username && x.Password == request.Password, cancellationToken);
 
@@ -44,9 +44,7 @@ namespace DynamicQR.Authentication.Endpoints
 				return TypedResults.Unauthorized();
 			}
 
-			//var token = jwt.GenerateToken(user);
-			var response = new Response("test"/*token*/);
-			return TypedResults.Ok(response);
+			return TypedResults.Ok();
 		}
 	}
 }
