@@ -10,8 +10,9 @@ namespace DynamicQR
 			var endpoints = app.MapGroup("/auth")
 				.WithTags("Authentication");//Для метаданных
 
-			endpoints.MapPublicGroup()
-				.MapEndpoint<Login>();
+			endpoints.MapPublicGroup()//Шаг #3. Конфигурация конечных точек.
+				.MapEndpoint<Login>()
+				.MapEndpoint<Signup>();
 		}
 
 		#region Пояснение
@@ -35,8 +36,8 @@ namespace DynamicQR
 		#endregion
 		private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) where TEndpoint : IEndpoint
 		{
-			TEndpoint.Map(app);
-			return app;
+			TEndpoint.Map(app);//Шаг #4. Вызываем релизацию метода Map конркетной конченой точки
+			return app;//app — это параметр типа IEndpointRouteBuilder, который представляет объект, используемый для конфигурации маршрутов (эндпоинтов) в приложении.
 		}
 
 		public static void MapEndpoints(this WebApplication app)
@@ -45,7 +46,7 @@ namespace DynamicQR
 				//.AddEndpointFilter<RequestLoggingFilter>() //В последующем настроим для логирования
 				//.WithOpenApi();
 
-			endpoints.MapAuthenticationEndpoints();
+			endpoints.MapAuthenticationEndpoints();//Шаг #2. Конфигурация конечных точек.
 		}
 	}
 }

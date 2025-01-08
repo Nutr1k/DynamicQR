@@ -1,4 +1,5 @@
 ﻿using DynamicQR.Authentication.Services;
+using DynamicQR.Common;
 using DynamicQR.Common.Api.Extension;
 using DynamicQR.Common.Api.Results;
 using DynamicQR.Data;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DynamicQR.Authentication.Endpoints
 {
-	public class Signup
+	public class Signup : IEndpoint
 	{
 		public static void Map(IEndpointRouteBuilder app)
 		{
