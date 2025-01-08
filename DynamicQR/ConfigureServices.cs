@@ -1,6 +1,8 @@
-﻿using DynamicQR.Data;
+﻿using DynamicQR.Authentication.Services;
+using DynamicQR.Data;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DynamicQR
 {
@@ -13,6 +15,8 @@ namespace DynamicQR
 			//Используется для регистрации валидаторов (классов валидации), которые наследуют AbstractValidator<T>
 			//или реализуют IValidator<T>
 			builder.Services.AddValidatorsFromAssembly(typeof(ConfigureServices).Assembly);
+
+			builder.AddJwtAuthentication();
 		}
 
 		//Для dependency injection(чтобы получать доступ к бд из конструкторов, методов)
@@ -31,6 +35,25 @@ namespace DynamicQR
 				builder.Services.AddEndpointsApiExplorer();
 				builder.Services.AddSwaggerGen();
 			}
+		}
+		private static void AddJwtAuthentication(this WebApplicationBuilder builder)
+		{
+			builder.Services.AddAuthentication().AddJwtBearer(options =>
+			{
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					IssuerSigningKey = Jwt.SecurityKey(builder.Configuration["Jwt:Key"]!),
+					ValidateIssuer = false,
+					ValidateAudience = false,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ClockSkew = TimeSpan.Zero
+				};
+			});
+			builder.Services.AddAuthorization();
+
+			builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+			builder.Services.AddTransient<Jwt>();//DI
 		}
 	}
 }
