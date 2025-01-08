@@ -7,7 +7,7 @@ namespace DynamicQR.Common.Api.Extension
 		public static RouteHandlerBuilder WithRequestValidation<TRequest>(this RouteHandlerBuilder builder)
 		{
 			return builder
-				.AddEndpointFilter<RequestValidationFilter<TRequest>>()
+				.AddEndpointFilter<RequestValidationFilter<TRequest>>()//Добавляем валидацию данных
 				.ProducesValidationProblem();
 		}
 	}

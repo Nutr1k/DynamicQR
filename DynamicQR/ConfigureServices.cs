@@ -26,8 +26,11 @@ namespace DynamicQR
 
 		private static void AddSwagger(this WebApplicationBuilder builder)
 		{
-			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
+			if (builder.Environment.IsDevelopment())
+			{
+				builder.Services.AddEndpointsApiExplorer();
+				builder.Services.AddSwaggerGen();
+			}
 		}
 	}
 }

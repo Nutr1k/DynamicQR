@@ -9,7 +9,7 @@ namespace DynamicQR
 			
 			builder.AddServices();
 
-			// Add services to the container.
+			// Для Razor страниц
 			builder.Services.AddRazorPages();
 
 			var app = builder.Build();
