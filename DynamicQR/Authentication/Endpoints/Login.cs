@@ -1,4 +1,5 @@
-﻿using DynamicQR.Common;
+﻿using DynamicQR.Authentication.Services;
+using DynamicQR.Common;
 using DynamicQR.Common.Api.Extension;
 using DynamicQR.Data;
 using FluentValidation;
@@ -35,7 +36,8 @@ namespace DynamicQR.Authentication.Endpoints
 			}
 		}
 
-		private static async Task<Results<Ok, UnauthorizedHttpResult>> Handle(Request request, DynamicQrContext database, CancellationToken cancellationToken)
+		//Тип Results<Ok, UnauthorizedHttpResult> в ASP.NET Core позволяет указать, что метод может возвращать один из двух типов
+		private static async Task<Results<Ok<Response>, UnauthorizedHttpResult>> Handle(Request request, DynamicQrContext database,Jwt jwt, CancellationToken cancellationToken)
 		{
 			var user = await database.Users.SingleOrDefaultAsync(x => x.Username == request.Username && x.Password == request.Password, cancellationToken);
 
@@ -43,8 +45,10 @@ namespace DynamicQR.Authentication.Endpoints
 			{
 				return TypedResults.Unauthorized();
 			}
-
-			return TypedResults.Ok();
+			
+			var token=jwt.GenerateToken(user);
+			var response=new Response(token);
+			return TypedResults.Ok(response);
 		}
 	}
 }

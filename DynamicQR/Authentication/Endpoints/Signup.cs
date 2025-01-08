@@ -1,4 +1,5 @@
-﻿using DynamicQR.Common.Api.Extension;
+﻿using DynamicQR.Authentication.Services;
+using DynamicQR.Common.Api.Extension;
 using DynamicQR.Common.Api.Results;
 using DynamicQR.Data;
 using DynamicQR.Data.Types;
@@ -30,7 +31,7 @@ namespace DynamicQR.Authentication.Endpoints
 			}
 		}
 
-		public static async Task<Results<Ok, ValidationError>> Handle(Request request,DynamicQrContext database,CancellationToken cancellationToken)
+		public static async Task<Results<Ok<Response>, ValidationError>> Handle(Request request,DynamicQrContext database,Jwt jwt,CancellationToken cancellationToken)
 		{
 			var isUsernameTaken=await database.Users
 				.AnyAsync(x=>x.Username == request.Username,cancellationToken);
@@ -49,7 +50,10 @@ namespace DynamicQR.Authentication.Endpoints
 			await database.Users.AddAsync(user, cancellationToken);
 			await database.SaveChangesAsync(cancellationToken);
 
-			return TypedResults.Ok();
+			var token=jwt.GenerateToken(user);
+			var response=new Response(token);
+
+			return TypedResults.Ok(response);
 		}
 	}
 }
