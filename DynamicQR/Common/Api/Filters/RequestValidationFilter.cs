@@ -28,7 +28,9 @@ namespace DynamicQR.Common.Api.Filters
 			}
 
 			logger.LogInformation("{Request}: Validating...", requestName);
+			//Получение данных из запроса
 			var request = context.Arguments.OfType<TRequest>().First();
+			//Валидация данных
 			var validationResult = await validator.ValidateAsync(request, context.HttpContext.RequestAborted);
 			if (!validationResult.IsValid)
 			{

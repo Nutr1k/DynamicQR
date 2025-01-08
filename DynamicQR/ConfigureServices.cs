@@ -12,6 +12,7 @@ namespace DynamicQR
 		{
 			builder.AddDatabase();
 			builder.AddSwagger();
+			
 			//Используется для регистрации валидаторов (классов валидации), которые наследуют AbstractValidator<T>
 			//или реализуют IValidator<T>
 			builder.Services.AddValidatorsFromAssembly(typeof(ConfigureServices).Assembly);
