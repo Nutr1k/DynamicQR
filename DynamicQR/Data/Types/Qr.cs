@@ -7,15 +7,17 @@ public partial class Qr
 {
     public int Id { get; set; }
 
+    public int UserId { get; set; }
+
     public int Type { get; set; }
 
     public int Uid { get; set; }
 
     public string? Title { get; set; }
 
-    public byte[]? File { get; set; }
-
-    public virtual User IdNavigation { get; set; } = null!;
+    public string JsonVariables { get; set; } = null!;
 
     public virtual TypeQr TypeNavigation { get; set; } = null!;
+
+    public virtual User User { get; set; } = null!;
 }

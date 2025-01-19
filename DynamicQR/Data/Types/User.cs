@@ -10,4 +10,6 @@ public partial class User
     public string Username { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+
+    public virtual ICollection<Qr> Qrs { get; set; } = new List<Qr>();
 }

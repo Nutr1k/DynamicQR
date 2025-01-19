@@ -15,7 +15,7 @@ namespace DynamicQR.Authentication.Endpoints
 		public static void Map(IEndpointRouteBuilder app)
 		{
 			app
-				.MapPost("/signup",Handle)
+				.MapPost("/signup", Handle)
 				.WithSummary("Creates new user account")
 				.WithRequestValidation<Request>();
 		}
@@ -32,10 +32,10 @@ namespace DynamicQR.Authentication.Endpoints
 			}
 		}
 
-		public static async Task<Results<Ok<Response>, ValidationError>> Handle(Request request,DynamicQrContext database,Jwt jwt,CancellationToken cancellationToken)
+		public static async Task<Results<Ok<Response>, ValidationError>> Handle(Request request, DynamicQrContext database, Jwt jwt, CancellationToken cancellationToken)
 		{
-			var isUsernameTaken=await database.Users
-				.AnyAsync(x=>x.Username == request.Username,cancellationToken);
+			var isUsernameTaken = await database.Users
+				.AnyAsync(x => x.Username == request.Username, cancellationToken);
 
 			if (isUsernameTaken)
 			{
@@ -51,8 +51,8 @@ namespace DynamicQR.Authentication.Endpoints
 			await database.Users.AddAsync(user, cancellationToken);
 			await database.SaveChangesAsync(cancellationToken);
 
-			var token=jwt.GenerateToken(user);
-			var response=new Response(token);
+			var token = jwt.GenerateToken(user);
+			var response = new Response(token);
 
 			return TypedResults.Ok(response);
 		}

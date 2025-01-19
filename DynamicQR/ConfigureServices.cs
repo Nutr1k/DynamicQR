@@ -34,7 +34,11 @@ namespace DynamicQR
 			if (builder.Environment.IsDevelopment())
 			{
 				builder.Services.AddEndpointsApiExplorer();
-				builder.Services.AddSwaggerGen();
+				builder.Services.AddSwaggerGen(options =>
+				{
+					options.CustomSchemaIds(type => type.FullName?.Replace('+', '.'));
+					options.InferSecuritySchemes();
+				});
 			}
 		}
 		private static void AddJwtAuthentication(this WebApplicationBuilder builder)
