@@ -28,6 +28,7 @@ namespace DynamicQR
 
 			endpoints.MapAuthenticationEndpoints();//Шаг #2. Конфигурация конечных точек.
 			endpoints.MapQrCodeEndpoints();
+
 			
 		}
 		private static void MapAuthenticationEndpoints(this IEndpointRouteBuilder app)
@@ -46,9 +47,11 @@ namespace DynamicQR
 				.WithTags("QR operations");
 
 			endpoints.MapAuthorizedGroup()
-				.MapEndpoint<GetQrTypes>()
+				//.MapEndpoint<GetQrTypes>()
 				.MapEndpoint<GetTemplateSchema>();
-			 
+
+			endpoints.MapAdminGroup()
+				.MapEndpoint<GetQrTypes>();
 		}
 
 		#region Пояснение
@@ -77,7 +80,15 @@ namespace DynamicQR
 				});
 		}
 
-
+		private static RouteGroupBuilder MapAdminGroup(this IEndpointRouteBuilder app, string? prefix = null)
+		{
+			return app.MapGroup(prefix ?? string.Empty)
+				.RequireAuthorization(policy => policy.RequireRole("Admin"))//Добавляет политику авторизации по роли
+				.WithOpenApi(x => new(x)
+				{
+					Security = [new() { [securityScheme] = [] }],
+				});
+		}
 
 		#region Установка маршрута конечной точки
 

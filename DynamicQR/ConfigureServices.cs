@@ -3,6 +3,7 @@ using DynamicQR.Data;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace DynamicQR
 {
@@ -52,7 +53,8 @@ namespace DynamicQR
 					ValidateAudience = false,
 					ValidateLifetime = true,
 					ValidateIssuerSigningKey = true,
-					ClockSkew = TimeSpan.Zero
+					ClockSkew = TimeSpan.Zero,
+					RoleClaimType = ClaimTypes.Role
 				};
 			});
 			builder.Services.AddAuthorization();
