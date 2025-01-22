@@ -15,7 +15,7 @@ namespace DynamicQR.QR_code.Endpoint
 	{
 		public static void Map(IEndpointRouteBuilder app)
 		{
-			app.MapPost("/", Handle)
+			app.MapPost("/Create", Handle)
 			   .WithSummary("Creates a new QR")
 			   .WithRequestValidation<Request>()
 			   .WithEnsureEntityExists<TypeQr, Request>(x => x.typeId);

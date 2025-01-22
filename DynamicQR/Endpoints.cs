@@ -49,7 +49,9 @@ namespace DynamicQR
 			endpoints.MapAuthorizedGroup()
 				.MapEndpoint<GetQrTypes>()
 				.MapEndpoint<GetTemplateSchema>()
-				.MapEndpoint<CreateQR>();
+				.MapEndpoint<CreateQR>()
+				.MapEndpoint<DeleteQR>();
+				
 				
 
 			//endpoints.MapAdminGroup()

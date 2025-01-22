@@ -43,18 +43,13 @@ public partial class DynamicQrContext : DbContext
         {
             entity.ToTable("QR");
 
-            entity.HasIndex(e => e.Id, "IX_QR_Id");
-
-            entity.HasIndex(e => e.Type, "IX_QR_Type");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Title).HasMaxLength(50);
             entity.Property(e => e.UserId).HasColumnName("User_id");
 
             entity.HasOne(d => d.TypeNavigation).WithMany(p => p.Qrs)
                 .HasForeignKey(d => d.Type)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_QR_TypeQR1");
+                .HasConstraintName("FK_QR_TypeQR");
 
             entity.HasOne(d => d.User).WithMany(p => p.Qrs)
                 .HasForeignKey(d => d.UserId)
