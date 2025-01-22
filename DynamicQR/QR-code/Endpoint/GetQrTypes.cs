@@ -13,7 +13,7 @@ namespace DynamicQR.QR_code
 		public static void Map(IEndpointRouteBuilder app)
 		{
 			app
-			.MapPost("/qrtypes", Handle)
+			.MapPost("/types", Handle)
 			.WithSummary("Get all QR type");
 
 		}
