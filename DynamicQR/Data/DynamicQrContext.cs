@@ -24,14 +24,18 @@ public partial class DynamicQrContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<FileQr>(entity =>
         {
-            entity.HasKey(e => e.FileId).HasName("PK_Files");
+            entity.HasKey(e => e.Id).HasName("PK_Files");
 
             entity.ToTable("FileQR");
+
+            entity.HasOne(d => d.User).WithMany(p => p.FileQrs)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_FileQR_Users");
         });
 
         modelBuilder.Entity<Qr>(entity =>
@@ -68,6 +72,7 @@ public partial class DynamicQrContext : DbContext
         {
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Role).HasMaxLength(15);
             entity.Property(e => e.Username).HasMaxLength(50);
         });
 
