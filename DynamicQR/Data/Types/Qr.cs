@@ -11,8 +11,6 @@ public partial class Qr
 
     public int Type { get; set; }
 
-    public int Uid { get; set; }
-
     public string? Title { get; set; }
 
     public string JsonVariables { get; set; } = null!;

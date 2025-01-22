@@ -47,11 +47,15 @@ namespace DynamicQR
 				.WithTags("QR operations");
 
 			endpoints.MapAuthorizedGroup()
-				//.MapEndpoint<GetQrTypes>()
-				.MapEndpoint<GetTemplateSchema>();
+				.MapEndpoint<GetQrTypes>()
+				.MapEndpoint<GetTemplateSchema>()
+				.MapEndpoint<CreateQR>();
+				
 
-			endpoints.MapAdminGroup()
-				.MapEndpoint<GetQrTypes>();
+			//endpoints.MapAdminGroup()
+				//.MapEndpoint<GetQrTypes>();
+
+
 		}
 
 		#region Пояснение

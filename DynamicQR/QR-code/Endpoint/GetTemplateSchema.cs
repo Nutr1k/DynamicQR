@@ -14,9 +14,8 @@ namespace DynamicQR.QR_code.Endpoint
 		{
 			app
 			  .MapPost("/template", Handle)
-			  .WithSummary("Get all QR type")
+			  .WithSummary("Get template schema")
 			  .WithRequestValidation<Request>();
-
 		}
 		
 		public record Request(int Id);
