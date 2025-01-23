@@ -14,9 +14,6 @@ namespace DynamicQR
 			builder.AddDatabase();
 			builder.AddSwagger();
 
-
-			
-
 			builder.AddJwtAuthentication();
 
 			builder.AddFluentValidation();

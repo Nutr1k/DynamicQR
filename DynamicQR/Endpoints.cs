@@ -45,17 +45,24 @@ namespace DynamicQR
 		{
 			var endpoints = app.MapGroup("/qr")
 				.WithTags("QR operations");
+			
+			endpoints.MapPublicGroup()
+				.MapEndpoint<GetQRImage>();
+
 
 			endpoints.MapAuthorizedGroup()
 				.MapEndpoint<GetQrTypes>()
 				.MapEndpoint<GetTemplateSchema>()
 				.MapEndpoint<CreateQR>()
-				.MapEndpoint<DeleteQR>();
-				
+				.MapEndpoint<DeleteQR>()
+				.MapEndpoint<UpdateQR>();
 				
 
+				
+
+
 			//endpoints.MapAdminGroup()
-				//.MapEndpoint<GetQrTypes>();
+			//.MapEndpoint<GetQrTypes>();
 
 
 		}
