@@ -16,8 +16,6 @@ public partial class Qr : IEntity, IOwnedEntity
 
     public string JsonVariables { get; set; } = null!;
 
-    public byte[] QrImage { get; set; } = null!;
-
     public virtual TypeQr TypeNavigation { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
