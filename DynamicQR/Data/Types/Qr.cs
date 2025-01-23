@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DynamicQR.Data.Types;
 
-public partial class Qr:IEntity, IOwnedEntity
+public partial class Qr : IEntity, IOwnedEntity
 {
     public int Id { get; set; }
 
@@ -15,6 +15,8 @@ public partial class Qr:IEntity, IOwnedEntity
     public string? Title { get; set; }
 
     public string JsonVariables { get; set; } = null!;
+
+    public byte[] QrImage { get; set; } = null!;
 
     public virtual TypeQr TypeNavigation { get; set; } = null!;
 

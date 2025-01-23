@@ -1,13 +1,4 @@
-﻿using Chirper.Data.Types;
-using DynamicQR.Authentication.Services;
-using DynamicQR.Common;
-using DynamicQR.Common.Api.Extension;
-using DynamicQR.Data;
-using DynamicQR.Data.Types;
-using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+﻿using DynamicQR.Common;
 
 namespace DynamicQR.QR_code.Endpoint
 {
@@ -45,6 +36,7 @@ namespace DynamicQR.QR_code.Endpoint
 				JsonVariables=request.jsonVariables,
 				Title=request.title,
 				Type=request.typeId,
+				//QrImage=
 			};
 			await database.Qrs.AddAsync(Qr,cancellationToken);
 			await database.SaveChangesAsync(cancellationToken);

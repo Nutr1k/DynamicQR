@@ -1,3 +1,12 @@
+global using DynamicQR.Common.Api;
+global using DynamicQR.Common.Api.Extensions;
+global using DynamicQR.Common.Api.Results;
+global using DynamicQR.Data;
+global using DynamicQR.Data.Types;
+global using FluentValidation;
+global using Microsoft.AspNetCore.Http.HttpResults;
+global using Microsoft.EntityFrameworkCore;
+global using System.Security.Claims;
 
 namespace DynamicQR
 {

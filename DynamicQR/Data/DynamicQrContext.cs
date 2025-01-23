@@ -24,7 +24,6 @@ public partial class DynamicQrContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<FileQr>(entity =>

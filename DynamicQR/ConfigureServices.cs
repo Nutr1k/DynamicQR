@@ -14,11 +14,21 @@ namespace DynamicQR
 			builder.AddDatabase();
 			builder.AddSwagger();
 
+
+			
+
+			builder.AddJwtAuthentication();
+
+			builder.AddFluentValidation();
+		}
+
+		private static void AddFluentValidation(this WebApplicationBuilder builder)
+		{
 			//Используется для регистрации валидаторов (классов валидации), которые наследуют AbstractValidator<T>
 			//или реализуют IValidator<T>(FluentValidation)
 			builder.Services.AddValidatorsFromAssembly(typeof(ConfigureServices).Assembly);
 
-			builder.AddJwtAuthentication();
+			ValidatorOptions.Global.LanguageManager.Enabled = false;
 		}
 
 		//Для dependency injection(чтобы получать доступ к бд из конструкторов, методов)

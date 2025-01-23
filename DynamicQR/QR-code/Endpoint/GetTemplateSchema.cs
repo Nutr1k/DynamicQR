@@ -1,10 +1,4 @@
 ﻿using DynamicQR.Common;
-using DynamicQR.Common.Api.Extension;
-using DynamicQR.Data;
-using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace DynamicQR.QR_code.Endpoint
 {

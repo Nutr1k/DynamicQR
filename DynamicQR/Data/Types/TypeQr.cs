@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DynamicQR.Data.Types;
 
-public partial class TypeQr : IEntity
+public partial class TypeQr: IEntity
 {
     public int Id { get; set; }
 

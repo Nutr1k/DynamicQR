@@ -4,7 +4,7 @@ using DynamicQR.Common.Api.Filters;
 using DynamicQR.Data;
 using System;
 
-namespace DynamicQR.Common.Api.Extension
+namespace DynamicQR.Common.Api.Extensions
 {
 	public static class RouteHandlerBuilderValidationExtensions
 	{

@@ -1,12 +1,6 @@
 ﻿using DynamicQR.Authentication.Services;
 using DynamicQR.Common;
-using DynamicQR.Common.Api.Extension;
-using DynamicQR.Data;
-using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Reflection.Metadata;
+
 
 namespace DynamicQR.Authentication.Endpoints
 {
