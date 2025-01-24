@@ -10,7 +10,7 @@ namespace DynamicQR
 		{
 			app.UseHttpsRedirection();//Для перенаправления всех HTTP-запросов на HTTPS.
 			app.MapEndpoints();//Шаг #1. Конфигурация конечных точек.
-
+			
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseSwagger();

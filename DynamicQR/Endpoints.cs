@@ -1,5 +1,6 @@
 ﻿using DynamicQR.Authentication.Endpoints;
 using DynamicQR.Common;
+using DynamicQR.File.Endpoint;
 using DynamicQR.QR_code;
 using DynamicQR.QR_code.Endpoint;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,13 +23,13 @@ namespace DynamicQR
 		};
 		public static void MapEndpoints(this WebApplication app)
 		{
-			var endpoints = app.MapGroup("");
+			var endpoints = app;//.MapGroup("");
 			//.AddEndpointFilter<RequestLoggingFilter>() //В последующем настроим для логирования
 			//.WithOpenApi();
 
 			endpoints.MapAuthenticationEndpoints();//Шаг #2. Конфигурация конечных точек.
 			endpoints.MapQrCodeEndpoints();
-
+			endpoints.MapFileEndpoints();
 			
 		}
 		private static void MapAuthenticationEndpoints(this IEndpointRouteBuilder app)
@@ -56,15 +57,19 @@ namespace DynamicQR
 				.MapEndpoint<CreateQR>()
 				.MapEndpoint<DeleteQR>()
 				.MapEndpoint<UpdateQR>();
-				
-
-				
-
-
 			//endpoints.MapAdminGroup()
 			//.MapEndpoint<GetQrTypes>();
 
+		}
 
+
+		private static void MapFileEndpoints(this IEndpointRouteBuilder app)
+		{
+			var endpoints = app.MapGroup("/file")
+				.WithTags("Files");//Для метаданных
+
+			endpoints.MapAuthorizedGroup()//Шаг #3. Конфигурация конечных точек.
+				.MapEndpoint<UploadFile>();
 		}
 
 		#region Пояснение
