@@ -1,5 +1,4 @@
 ﻿using DynamicQR.Common;
-using DynamicQR.QR_code.DTOs;
 using DynamicQR.QR_code.Services;
 using QRCoder;
 using System.Linq;
@@ -20,13 +19,13 @@ namespace DynamicQR.QR_code.Endpoint
 
 		public static async Task<Results<Ok<List<Response>>,NotFound>> Handle(DynamicQrContext database, ClaimsPrincipal claimsPrincipal, CancellationToken cancellationToken)
 		{
-			var rawData = database.Qrs
+			var rawData = await database.Qrs
 				.Join(database.TypeQrs,
 				qr => qr.Type,
 				type => type.Id,
 				(qr, type) => new { qr.Title, qr.UserId, qr.Id, type.Type })
 				.Where(x => x.UserId == claimsPrincipal.GetUserId())
-				.ToList(); 
+				.ToListAsync(cancellationToken); 
 
 			string baseUrl = "google.com";
 			Func<string, int?, int?, string> finalUrl = (baseUrl, userId, id) => $"{baseUrl}/{userId}/{id}";
@@ -35,8 +34,6 @@ namespace DynamicQR.QR_code.Endpoint
 			var urls = rawData.Select(x => finalUrl(baseUrl, x.UserId, x.Id)).ToList();
 
 			// Генерация Base64 QR-кодов
-			//var qrCodesBase64 = new List<string>();
-
 			List<(string url, string qrBase64)> qrCodesBase64 = new List<(string, string)>();
 			await Task.Run(() =>
 			{
