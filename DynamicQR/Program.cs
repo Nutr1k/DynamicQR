@@ -20,7 +20,9 @@ namespace DynamicQR
 			// Для Razor страниц
 			builder.Services.AddRazorPages();
 
-			var app = builder.Build();
+
+			WebApplication app = builder.Build();
+
 			await app.Configure();
 
 			#region Для UI(Web)
@@ -34,12 +36,15 @@ namespace DynamicQR
 
 			app.MapRazorPages();
 			#endregion
+			
 			app.UseHttpsRedirection();
+
 			app.UseStaticFiles();
 
 			app.UseRouting();
 
 			app.UseAuthorization();
+
 			app.Run();
 		}
 	}
