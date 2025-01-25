@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Chirper.Data.Types;
+using System;
 using System.Collections.Generic;
 
 namespace DynamicQR.Data.Types;
 
-public partial class TypeQr
+public partial class TypeQr: IEntity
 {
     public int Id { get; set; }
 
