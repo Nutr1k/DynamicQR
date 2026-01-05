@@ -27,6 +27,7 @@ namespace DynamicQR.QR_code.Endpoint
 		private static async Task<Results<Ok<Response>, NotFound>> Handle(Request request, DynamicQrContext database, ClaimsPrincipal claimsPrincipal, CancellationToken cancellationToken)
 		{
 			var post = await database.TypeQrs
+				.Where(t=>t.Id == request.Id)
 				.Select(t => new Response
 				(
 					t.Type,

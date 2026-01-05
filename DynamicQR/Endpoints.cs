@@ -46,9 +46,10 @@ namespace DynamicQR
 		{
 			var endpoints = app.MapGroup("/qr")
 				.WithTags("QR operations");
-			
+
 			endpoints.MapPublicGroup()
-				.MapEndpoint<CreateQRImage>();
+				.MapEndpoint<CreateQRImage>()
+				.MapEndpoint<GetQr>();
 
 
 			endpoints.MapAuthorizedGroup()

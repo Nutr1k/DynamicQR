@@ -17,6 +17,14 @@ namespace DynamicQR
 			builder.AddJwtAuthentication();
 
 			builder.AddFluentValidation();
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowFrontend",
+					builder => builder
+						.AllowAnyOrigin() // Разрешаем доступ с фронтенда
+						.AllowAnyHeader()
+						.AllowAnyMethod());
+			});
 		}
 
 		private static void AddFluentValidation(this WebApplicationBuilder builder)

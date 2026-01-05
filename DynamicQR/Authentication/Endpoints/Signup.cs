@@ -38,7 +38,9 @@ namespace DynamicQR.Authentication.Endpoints
 			var user = new User
 			{
 				Username = request.Username,
-				Password = request.Password
+				Password = request.Password,
+				Role=UserRole.User.ToString()
+				
 			};
 
 			await database.Users.AddAsync(user, cancellationToken);
